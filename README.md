@@ -14,6 +14,7 @@ A flutter app demonstrating Shared Preferences for persisting user login details
 <table>
   <tr>
     <td><img src="https://github.com/MarvelApps-Flutter/flutter_shared_preference/blob/master/screenshots/android/android4.png" height="480px"></td>
+    <td><img src="https://github.com/MarvelApps-Flutter/flutter_shared_preference/blob/master/screenshots/android/android5.png" height="480px"></td>
     
   </tr>
  </table>
