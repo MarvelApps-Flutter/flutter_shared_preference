@@ -1,6 +1,14 @@
 # Flutter Shared Preference Module
 A flutter app demonstrating Shared Preferences for persisting user login details.
 
+
+ # Demo
+  <table>
+  <tr>
+  <td><img src="https://github.com/MarvelApps-Flutter/flutter_shared_preference/blob/master/working_demo/shared_preference_demo.gif" height="480px"></td>
+    </tr>
+  </table>
+
 # Android Screenshots
 
 <table>
@@ -38,9 +46,4 @@ A flutter app demonstrating Shared Preferences for persisting user login details
   </tr>
  </table>
 
- # Demo
-  <table>
-  <tr>
-  <td><img src="https://github.com/MarvelApps-Flutter/flutter_shared_preference/blob/master/working_demo/shared_preference_demo.gif" height="480px"></td>
-    </tr>
-  </table>
+
