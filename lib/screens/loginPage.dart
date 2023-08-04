@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preference_module/constants/image_constants.dart';
 import 'package:shared_preference_module/constants/string_constants.dart';
-
-import 'package:shared_preference_module/helper/authenticationFunctions.dart';
+import 'package:shared_preference_module/helper/userFunctions.dart';
 import 'package:shared_preference_module/helper/validationFunctions.dart';
-
-import 'package:shared_preference_module/screens/new_dashboard_page.dart';
-import 'package:shared_preference_module/screens/profilePage.dart';
-import 'package:shared_preference_module/screens/sign_up_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preference_module/screens/signUpPage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -94,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                     prefixIcon: Icon(
                                       Icons.person_outline,
                                     ),
-                                    hintText: StringConstant.email,
+                                    hintText: StringConstants.email,
                                     hintStyle: TextStyle(color: Colors.black),
                                   ),
                                   validator: (value) {
@@ -116,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                     prefixIcon: Icon(
                                       Icons.lock_outline,
                                     ),
-                                    hintText: StringConstant.password,
+                                    hintText: StringConstants.password,
                                     hintStyle: TextStyle(color: Colors.black),
                                   ),
                                   validator: (value) {
@@ -146,42 +141,15 @@ class _LoginPageState extends State<LoginPage> {
                           child: TextButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                // checking the credentials
-                                bool credentialExists = await checkCredentials(
-                                    emailController.text.toString(),
-                                    passwordController.text.toString());
-
-                                // Setting up the info in profile page
-                                //getList();
-
-                                //await getEmail(emailController.text.toString());
-
-                                if (credentialExists) {
-                                  List<String> person = await getPersonList(
-                                      emailController.text.toString());
-                                  print(person);
-                                  SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
-                                  prefs.setBool(StringConstant.login, true);
-
-                                  prefs.setString(StringConstant.email,
-                                      emailController.text);
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ProfilePage(
-                                                dataList: person,
-                                              )));
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text(
-                                              "User not found. Please sign up.")));
-                                }
+                                // User Login Function
+                                await UserFunctions().login(
+                                    context,
+                                    emailController.text,
+                                    passwordController.text);
                               }
                             },
                             child: Text(
-                              StringConstant.login,
+                              StringConstants.login,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -200,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(height: 15),
                         Container(
                           child: Text(
-                            StringConstant.continue_social_media,
+                            StringConstants.continue_social_media,
                             style: TextStyle(fontSize: 17),
                           ),
                         ),
@@ -230,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              StringConstant.dont_have_Account_msg,
+                              StringConstants.dont_have_Account_msg,
                               style: TextStyle(fontSize: 20),
                             ),
                             Padding(
@@ -243,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                                           builder: (context) => SignUpPage()));
                                 },
                                 child: Text(
-                                  StringConstant.signup,
+                                  StringConstants.signup,
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 20,

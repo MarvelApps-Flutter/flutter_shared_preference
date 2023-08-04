@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preference_module/constants/image_constants.dart';
 import 'package:shared_preference_module/constants/string_constants.dart';
 import 'package:shared_preference_module/helper/authenticationFunctions.dart';
-import 'package:shared_preference_module/helper/prerences.dart';
-
-import 'package:shared_preference_module/screens/login_page.dart';
-import 'package:shared_preference_module/screens/new_dashboard_page.dart';
+import 'package:shared_preference_module/screens/loginPage.dart';
 import 'package:shared_preference_module/screens/profilePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,10 +53,10 @@ class SplashScreenState extends State<SplashScreen>
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // If we don't get any value back then it will be considered false;
-    isLoggedIn = await Preferences.getBool(StringConstant.login, false);
+    isLoggedIn = prefs.getBool(StringConstants.login) ?? false;
 
     if (isLoggedIn) {
-      String? email = await prefs.getString(StringConstant.email);
+      String? email = await prefs.getString(StringConstants.email);
 
       List<String> person = await getPersonList(email!);
 
@@ -67,7 +64,6 @@ class SplashScreenState extends State<SplashScreen>
           context,
           MaterialPageRoute(
               builder: (context) => ProfilePage(
-                    //data: email.isEmpty ? "" : email,
                     dataList: person.length == 0 ? [] : person,
                   )));
     } else
@@ -97,7 +93,7 @@ class SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                StringConstant.poweredBy,
+                StringConstants.poweredBy,
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -113,14 +109,14 @@ class SplashScreenState extends State<SplashScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    StringConstant.successive,
+                    StringConstants.successive,
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 3),
                   ),
                   Text(
-                    StringConstant.technologies,
+                    StringConstants.technologies,
                     style: TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.w400,
@@ -160,7 +156,7 @@ class SplashScreenState extends State<SplashScreen>
               child: const Padding(
                 padding: EdgeInsets.only(right: 15),
                 child: Text(
-                  StringConstant.apps,
+                  StringConstants.apps,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontSize: 20,

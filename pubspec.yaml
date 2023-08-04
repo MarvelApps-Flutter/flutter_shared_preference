@@ -30,9 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
   intl:
-  shared_preferences: 
-  sqflite: 
-  path_provider: ^2.0.11
+  shared_preferences: ^2.2.0
+  sqflite: ^2.3.0
+  path_provider: ^2.0.15
 
 
 

@@ -37,7 +37,7 @@ class PersonDatabaseHelper {
 
   // Function to initialize the database
   Future<Database> initializeDatabase() async {
-    // Getting directory path for both Android and Ios
+    // Getting directory path for both Android and iOS
 
     Directory directory = await getApplicationDocumentsDirectory();
 
@@ -45,20 +45,16 @@ class PersonDatabaseHelper {
 
     // Open or create database at a given path.
     var personDatabase =
-        await openDatabase(path, version: 1, onCreate: _createDb);
+        await openDatabase(path, version: 1, onCreate: _createTable);
     print("Database Created");
-
-    // _createDb(personDatabase, 1);
-    // print("Table created");
-
     return personDatabase;
   }
 
-  // Function for creating a Database,
-  void _createDb(Database db, int newVersion) async {
+  // Function for creating a table
+  void _createTable(Database db, int newVersion) async {
     if (_database == null) {
       await db.execute(
-          'CREATE TABLE personsTable ($personFullName TEXT, $personEmail TEXT PRIMARY KEY, $personPhoneNumber TEXT , $personPassword VARCHAR, $personBirthDate TEXT, $personGender TEXT)');
+          'CREATE TABLE $personTable ($personFullName TEXT, $personEmail TEXT PRIMARY KEY, $personPhoneNumber TEXT , $personPassword VARCHAR, $personBirthDate TEXT, $personGender TEXT)');
     }
   }
 
@@ -87,20 +83,17 @@ class PersonDatabaseHelper {
   Future<int> updatePerson(Person person) async {
     Database db = await this.database;
 
-    //var result = await db.rawUpdate(sql)
     var result = await db.update(personTable, person.toMap(),
         where: '$personEmail = ?', whereArgs: [person.email]);
     return result;
   }
-
-  // Change User Details.
 
   // Delete Operation
   Future<int> deletePerson(String email) async {
     Database db = await this.database;
 
     var result = await db
-        .rawDelete('DELETE FROM $personTable WHERE $personEmail = $email');
+        .rawDelete('DELETE FROM $personTable WHERE $personEmail = ?', [email]);
     return result;
   }
 }

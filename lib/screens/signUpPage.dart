@@ -1,21 +1,20 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:shared_preference_module/constants/image_constants.dart';
-import 'package:shared_preference_module/constants/string_constants.dart';
-
-import 'package:shared_preference_module/helper/personDatabaseHelper.dart';
-import 'package:shared_preference_module/helper/validationFunctions.dart';
-import 'package:shared_preference_module/models/personModel.dart';
-import 'package:shared_preference_module/screens/login_page.dart';
 
 import "package:intl/intl.dart";
+import 'package:shared_preference_module/constants/image_constants.dart';
+import 'package:shared_preference_module/constants/string_constants.dart';
+import 'package:shared_preference_module/helper/validationFunctions.dart';
+import 'package:shared_preference_module/screens/loginPage.dart';
+
+import '../helper/userFunctions.dart';
+import '../models/personModel.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-String gender = StringConstant.male;
+String gender = StringConstants.male;
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
@@ -54,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: nameController,
                       decoration: InputDecoration(
-                        hintText: StringConstant.fullname,
+                        hintText: StringConstants.fullname,
                         prefixIcon: Padding(
                             padding: EdgeInsetsDirectional.only(start: 10),
                             child: Icon(Icons.person)),
@@ -74,7 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        hintText: StringConstant.email,
+                        hintText: StringConstants.email,
                         prefixIcon: Padding(
                           padding: EdgeInsetsDirectional.only(start: 10),
                           child: Icon(Icons.email),
@@ -98,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       keyboardType: TextInputType.phone,
                       controller: phoneController,
                       decoration: InputDecoration(
-                        hintText: StringConstant.phone_number,
+                        hintText: StringConstants.phone_number,
                         prefixIcon: Padding(
                             padding: EdgeInsetsDirectional.only(start: 10),
                             child: Icon(Icons.phone)),
@@ -120,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       //keyboardType: TextInputType.datetime,
                       decoration: InputDecoration(
                         hintText: _birthDate == null
-                            ? StringConstant.dob
+                            ? StringConstants.dob
                             : dateFormat.format(_birthDate!).toString(),
                         hintStyle: TextStyle(color: Colors.grey[600]),
                         prefixIcon: Icon(Icons.calendar_today),
@@ -163,7 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: passController,
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: StringConstant.create_password,
+                        hintText: StringConstants.create_password,
                         prefixIcon: Padding(
                             padding: EdgeInsetsDirectional.only(start: 10),
                             child: Icon(Icons.lock)),
@@ -184,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: confirmPassController,
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: StringConstant.confirm_password,
+                        hintText: StringConstants.confirm_password,
                         prefixIcon: Padding(
                             padding: EdgeInsetsDirectional.only(start: 10),
                             child: Icon(Icons.lock)),
@@ -221,30 +220,30 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: Colors.grey[600],
                           ),
                           Text(
-                            StringConstant.gender_signup,
+                            StringConstants.gender_signup,
                             style: TextStyle(
                                 color: Colors.grey[600], fontSize: 16),
                           ),
                           Radio(
-                              value: StringConstant.male,
+                              value: StringConstants.male,
                               groupValue: gender,
                               onChanged: (value) {
                                 setState(() {
                                   gender = value.toString();
                                 });
                               }),
-                          Text(StringConstant.male,
+                          Text(StringConstants.male,
                               style: TextStyle(
                                   color: Colors.grey[600], fontSize: 16)),
                           Radio(
-                              value: StringConstant.female,
+                              value: StringConstants.female,
                               groupValue: gender,
                               onChanged: (value) {
                                 setState(() {
                                   gender = value.toString();
                                 });
                               }),
-                          Text(StringConstant.female,
+                          Text(StringConstants.female,
                               style: TextStyle(
                                   color: Colors.grey[600], fontSize: 16)),
                         ],
@@ -257,18 +256,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            debugPrint("Details are validated!!");
-                            debugPrint("Full Name: " + nameController.text);
-                            debugPrint("Email ID: " + emailController.text);
-                            debugPrint("Date of Birth: " +
-                                dateFormat.format(_birthDate!).toString());
-                            debugPrint("Gender: " + gender.toString());
-
-                            print("Phone Number: " +
-                                phoneController.text.toString());
-                            debugPrint("Account Created!!!!!!!");
-
-                            // Creating a new variable
                             var personObject = Person(
                                 nameController.text.toString(),
                                 emailController.text.toString(),
@@ -276,23 +263,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                 passController.text.toString(),
                                 dateFormat.format(_birthDate!).toString(),
                                 gender);
-                            // Initialising database instance
-                            PersonDatabaseHelper person =
-                                new PersonDatabaseHelper();
-                            await person.initializeDatabase();
 
-                            // Inserting the person details
-                            await person.insertPerson(personObject);
-
-                            // After insertion user will be navigated to login page
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()));
+                            await UserFunctions()
+                                .registerUser(context, personObject);
                           }
                         },
                         child: Text(
-                          StringConstant.signup,
+                          StringConstants.signup,
                           style: TextStyle(color: Colors.black),
                         ),
                         style: ButtonStyle(
@@ -312,7 +289,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          StringConstant.already_have_account,
+                          StringConstants.already_have_account,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15),
                         ),
@@ -324,7 +301,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       builder: (context) => LoginPage()));
                             },
                             child: Text(
-                              StringConstant.signin,
+                              StringConstants.signin,
                               style: TextStyle(
                                   color: Colors.blue,
                                   fontSize: 20,

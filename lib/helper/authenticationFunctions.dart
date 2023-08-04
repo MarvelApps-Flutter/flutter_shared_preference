@@ -1,7 +1,8 @@
 import 'package:shared_preference_module/helper/personDatabaseHelper.dart';
-import 'package:shared_preference_module/models/personModel.dart';
 
-Future<bool> checkCredentials(String email, String password) async {
+import '../models/personModel.dart';
+
+Future<bool> checkIfUserExists(String email, String password) async {
   bool value = true;
   PersonDatabaseHelper person = new PersonDatabaseHelper();
   // Initialise the database

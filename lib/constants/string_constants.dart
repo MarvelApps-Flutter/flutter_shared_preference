@@ -1,4 +1,4 @@
-class StringConstant {
+class StringConstants {
   static const String dont_have_Account_msg = " Don't have an account?";
   static const String continue_social_media = "Continue with social media";
   static const String password = "Password";
@@ -23,4 +23,15 @@ class StringConstant {
   static const String gender_signup = " Gender: ";
 
   static const String already_have_account = "Already have an account?";
+
+  static const String DELETE = "Delete";
+  static const String SAVE = "Save";
+  static const String USER_NOT_FOUND = "User not found. Please sign up.";
+  static const String INCORRECT_PASSWORD = "Incorrect Password!!.";
+  static const String WELCOME_BACK = "Welcome Back!";
+  static const String DASHBOARD = "Dashboard";
+  static const String SOMETHING_WENT_WRONG = "Something went wrong !!!";
+  static const String UPDATED_SUCCESSFULLY = "Updated Successfully!!!";
+  static const String ACCOUNT_DELETED_SUCCESSFULLY =
+      "Account Deleted Successfully !!!";
 }

@@ -26,13 +26,13 @@ class Person {
   String get gender => _gender!;
 
 //Setter
-  set fullName(String newName) {
+  set fullName(String? newName) {
     if (newName != null) {
       this._fullName = newName;
     }
   }
 
-  set email(String newEmail) {
+  set email(String? newEmail) {
     if (newEmail != null) {
       this._email = newEmail;
     }
@@ -42,7 +42,7 @@ class Person {
     this._phoneNumber = newPhoneNumber;
   }
 
-  set password(String newPassword) {
+  set password(String? newPassword) {
     if (newPassword != null) {
       this._password = newPassword;
     }
@@ -52,7 +52,7 @@ class Person {
     this._birthDate = newBirthDate;
   }
 
-  set gender(String newGender) {
+  set gender(String? newGender) {
     if (newGender != null) {
       this._gender = newGender;
     }
@@ -81,11 +81,4 @@ class Person {
     this._birthDate = map['birthDate'];
     this._gender = map['gender'];
   }
-
-  // Implement toString to make it easier to see information about
-  // each dog when using the print statement.
-  // @override
-  // String toString() {
-  //   return 'Person {fullName: $fullName, email: $email, phoneNumber: $phoneNumber, password: $password, birthDate: $birthDate, gender: $gender}';
-  // }
 }
